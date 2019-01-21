@@ -1,0 +1,31 @@
+<div class="jumbotron-fluid mb-5">
+	<h1 class="display-4 text-center">News Scraper</h1>
+	<p class="lead">This site pulls articles from NPR and displays them below. Users can add or delete notes about each of
+		the articles.</p>
+	<hr class="my-4">
+	<p>Click the button below to scrape NPR.com</p>
+	<a id="scrape" class="btn btn-primary btn-lg" role="button">Scrape news</a>
+</div>
+<div class="container-fluid article-container">
+
+	{{#each articles}}
+	<div class="card border-dark mb-3">
+		<div class="card-header text-info">
+			<h3><a href="{{url}}">
+					{{title}}</a></h3>
+		</div>
+		<div class="card-body text-dark">
+			<h5 class="card-title">Dark card title</h5>
+			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		</div>
+	</div>
+	{{/each}}
+</div>
+{{!-- <ul>
+	{{#each wishes}}
+	<li>
+		<p>ID: {{id}}</p>
+		<p>Wish: {{wish}}</p>
+	</li>
+	{{/each}}
+</ul> --}}
