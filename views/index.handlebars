@@ -1,31 +1,61 @@
-<div class="jumbotron-fluid mb-5">
+<div class="jumbotron-fluid mb-5 mt-3">
 	<h1 class="display-4 text-center">News Scraper</h1>
 	<p class="lead">This site pulls articles from NPR and displays them below. Users can add or delete notes about each of
 		the articles.</p>
 	<hr class="my-4">
 	<p>Click the button below to scrape NPR.com</p>
-	<a id="scrape" class="btn btn-primary btn-lg" role="button">Scrape news</a>
+	<a id="scrape" class="btn btn-info btn-lg text-white" role="button">Scrape News</a>
 </div>
 <div class="container-fluid article-container">
 
+	{{#if articles}}
 	{{#each articles}}
-	<div class="card border-dark mb-3">
-		<div class="card-header text-info">
-			<h3><a class="text-info" href="{{url}}">
-					{{title}}</a></h3>
-		</div>
-		<div class="card-body text-dark">
-			<h5 class="card-title">Dark card title</h5>
-			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	<div class="card border-dark mb-3" data-_id={{_id}}>
+		<div class="card-body">
+			<h3 class="card-title">
+				<a class="text-info" href="{{url}}">{{title}}</a>
+
+			</h3>
+			<h6 class="card-subtitle mb-2 text-muted">{{date}}</h6>
+			<p class="card-text">{{summary}}</p>
+			<button type="button" class="btn btn-secondary notes text-white" data-toggle="modal" data-target="#notesModal">Notes
+				<span class="badge badge-light">1</span></button>
 		</div>
 	</div>
 	{{/each}}
+	{{else}}
+	<div>
+		<h3 class="text-info">There aren't any articles scraped. Click the "Scrape news" button to get articles.</h3>
+	</div>
+	{{/if}}
+
+	<!-- Modal -->
+	<div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="notesModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="notesModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<ul>
+
+					</ul>
+					<form>
+						<div class="form-group">
+							<textarea class="form-control" id="note-text" placeholder="New Note"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </div>
-{{!-- <ul>
-	{{#each wishes}}
-	<li>
-		<p>ID: {{id}}</p>
-		<p>Wish: {{wish}}</p>
-	</li>
-	{{/each}}
-</ul> --}}

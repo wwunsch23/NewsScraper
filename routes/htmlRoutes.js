@@ -15,7 +15,6 @@ module.exports = function(app) {
         //console.log(dbArticle);
         // If we were able to successfully find Articles, send them back to the client
         res.render("index", { articles: dbArticle });
-        //res.json(dbArticle);
       })
       .catch(function(err) {
         // If an error occurred, send it to the client
@@ -42,12 +41,14 @@ module.exports = function(app) {
         result.url = $(this)
           .find("h2.title a")
           .attr("href");
-        result.date = $(this)
+        fullDate = $(this)
           .find(".date")
           .text();
-        result.summary = $(this)
+        result.date = fullDate.substring(0, fullDate.length - 3);
+        fullSummary = $(this)
           .find(".teaser a")
           .text();
+        result.summary = fullSummary.substring(fullDate.length);
 
         console.log(result);
         // Create a new Article using the `result` object built from scraping
