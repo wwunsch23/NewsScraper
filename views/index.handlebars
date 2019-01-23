@@ -10,7 +10,7 @@
 
 	{{#if articles}}
 	{{#each articles}}
-	<div class="card border-dark mb-3" data-_id={{_id}}>
+	<div class="card border-dark mb-3" data-id={{_id}}>
 		<div class="card-body">
 			<h3 class="card-title">
 				<a class="text-info" href="{{url}}">{{title}}</a>
@@ -18,7 +18,7 @@
 			</h3>
 			<h6 class="card-subtitle mb-2 text-muted">{{date}}</h6>
 			<p class="card-text">{{summary}}</p>
-			<button type="button" class="btn btn-secondary notes text-white" data-toggle="modal" data-target="#notesModal">Notes
+			<button type="button" class="btn btn-secondary notes text-white" data-id={{_id}} data-toggle="modal" data-target="#notesModal">Notes
 				<span class="badge badge-light">1</span></button>
 		</div>
 	</div>
@@ -40,9 +40,8 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<ul>
-
-					</ul>
+					<div id="notes">
+					</div>
 					<form>
 						<div class="form-group">
 							<textarea class="form-control" id="note-text" placeholder="New Note"></textarea>
