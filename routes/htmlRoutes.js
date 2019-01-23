@@ -23,15 +23,15 @@ module.exports = function(app) {
       });
   });
 
-  // A GET route for scraping the echoJS website
+  // A GET route for scraping NPR website
   app.get("/scrape", function(req, res) {
     // First, we grab the body of the html with axios
     axios.get("https://www.npr.org/sections/news/").then(function(response) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(response.data);
 
-      // Now, we grab every h2 within an article tag, and do the following:
-      $("article").each(function(i, element) {
+      // Now, we grab every article tag, and do the following:
+      $("article.item").each(function(i, element) {
         // Save an empty result object
         var result = {};
 
@@ -55,15 +55,15 @@ module.exports = function(app) {
           .then(function(dbArticle) {
             // View the added result in the console
             console.log(dbArticle);
+            res.status(200).end();
+            //res.render("index", { articles: dbArticle });
           })
           .catch(function(err) {
             // If an error occurred, log it
             console.log(err);
+            //res.status(500).end();
           });
       });
-
-      // Send a message to the client
-      res.send("Scrape Complete");
     });
   });
 };
