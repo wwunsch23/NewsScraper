@@ -20,7 +20,10 @@ $(document).ready(function() {
     var button = $(event.relatedTarget);
     //console.log(button); // Button that triggered the modal
     var thisId = button.data("id");
-    var title = button.data("title");
+    var title = button
+      .parent()
+      .find("a.text-info")
+      .text();
     // Empty the notes from the note section
     var modal = $(this);
     modal.find(".modal-title").text("Notes for: " + title);
