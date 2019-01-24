@@ -17,16 +17,15 @@ $(document).ready(function() {
   //$(document).on("click", ".btn.notes", function() {
   $("#notesModal").on("show.bs.modal", function(event) {
     //console.log("Show modal event reached");
-    var button = $(event.relatedTarget); // Button that triggered the modal
+    var button = $(event.relatedTarget);
+    //console.log(button); // Button that triggered the modal
     var thisId = button.data("id");
+    var title = button.data("title");
     // Empty the notes from the note section
     var modal = $(this);
-    modal.find(".modal-title").text("New message to " + recipient);
-    modal.find(".modal-body input").val(recipient);
+    modal.find(".modal-title").text("Notes for: " + title);
 
     $("#notes").empty();
-    // Save the id from the p tag
-    console.log(thisId);
     // Now make an ajax call for the Article
     // $.ajax({
     //   method: "GET",
