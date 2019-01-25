@@ -13,8 +13,20 @@ $(document).ready(function() {
       });
   });
 
-  // Whenever someone clicks a p tag
-  //$(document).on("click", ".btn.notes", function() {
+  function displayNotes(notes) {
+    var listgroup = $("<ul>").addClass("list-group mb-3");
+    notes.forEach(note => {
+      var listItem = $("<li>")
+        .addClass("list-group-item d-flex justify-content-between")
+        .text(note.body)
+        .append(
+          "<button type='button' class='btn btn-outline-danger deletenote pt-0 pb-0'>&times</button>"
+        );
+      listgroup.append(listItem);
+    });
+    $("#notes").append(listgroup);
+  }
+
   $("#notesModal").on("show.bs.modal", function(event) {
     //console.log("Show modal event reached");
     var button = $(event.relatedTarget);
@@ -27,8 +39,9 @@ $(document).ready(function() {
     // Empty the notes from the note section
     var modal = $(this);
     modal.find(".modal-title").text("Notes for: " + title);
-
+    $("#savenote").attr("data-id", thisId);
     $("#notes").empty();
+    $("#note-text").val("");
     // Now make an ajax call for the Article
     // $.ajax({
     //   method: "GET",
@@ -62,28 +75,30 @@ $(document).ready(function() {
   $(document).on("click", "#savenote", function() {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
+    var notetext = $("#note-text").val();
 
-    // Run a POST request to change the note, using what's entered in the inputs
-    $.ajax({
-      method: "POST",
-      url: "/articles/" + thisId,
-      data: {
-        // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from note textarea
-        body: $("#bodyinput").val()
-      }
-    })
-      // With that done
-      .then(function(data) {
-        // Log the response
-        console.log(data);
-        // Empty the notes section
-        $("#notes").empty();
-      });
+    if (notetext) {
+      console.log("Saving note");
+      // Run a POST request to change the note, using what's entered in the inputs
+      $.ajax({
+        method: "POST",
+        url: "/articles/" + thisId,
+        data: {
+          // Value taken from note textarea
+          body: $("#note-text").val()
+        }
+      })
+        // With that done
+        .then(function(data) {
+          // Empty the notes section
+          $("#notes").empty();
+          $("#note-text").val("");
+          displayNotes(data);
+        });
+    }
+  });
 
-    // Also, remove the values entered in the input and textarea for note entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
+  $("#notesModal").on("hidden.bs.modal", function(event) {
+    location.reload();
   });
 });
