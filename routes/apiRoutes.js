@@ -10,7 +10,7 @@ module.exports = function(app) {
       .populate("notes")
       .then(function(dbArticle) {
         // If we were able to successfully find an Article with the given id, send it back to the client
-        res.json(dbArticle);
+        res.json(dbArticle.notes);
       })
       .catch(function(err) {
         // If an error occurred, send it to the client
@@ -39,6 +39,26 @@ module.exports = function(app) {
       })
       .catch(function(err) {
         // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
+
+  app.delete("/notes/:id", function(req, res) {
+    db.Note.findByIdAndRemove(req.params.id)
+      .then(function(dbNote) {
+        //console.log("apiRoute", dbNote);
+        return db.Article.findOneAndUpdate(
+          { notes: dbNote._id },
+          { $pull: { notes: dbNote._id } },
+          { new: true }
+        ).populate("notes");
+      })
+      .then(function(dbArticle) {
+        //console.log("Delete Article", dbArticle);
+        res.json(dbArticle.notes);
+      })
+      .catch(function(err) {
+        console.log(err);
         res.json(err);
       });
   });

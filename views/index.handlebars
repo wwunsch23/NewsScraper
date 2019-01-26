@@ -1,10 +1,10 @@
 <div class="jumbotron-fluid mb-5 mt-3">
-	<h1 class="display-4 text-center">News Scraper</h1>
+	<h1 class="display-4 text-center">News Grabber</h1>
 	<p class="lead">This site pulls articles from NPR and displays them below. Users can add or delete notes about each of
 		the articles.</p>
 	<hr class="my-4">
-	<p>Click the button below to scrape NPR.com</p>
-	<a id="scrape" class="btn btn-info btn-lg text-white" role="button">Scrape News</a>
+	<p>Click the button below to grab articles from NPR.com</p>
+	<a id="scrape" class="btn btn-info btn-lg text-white" role="button">Get News</a>
 </div>
 <div class="container-fluid article-container">
 
@@ -25,7 +25,7 @@
 	{{/each}}
 	{{else}}
 	<div>
-		<h3 class="text-info">There aren't any articles scraped. Click the "Scrape news" button to get articles.</h3>
+		<h3 class="text-info">There aren't any articles scraped.</h3>
 	</div>
 	{{/if}}
 
@@ -44,13 +44,13 @@
 					</div>
 					<form>
 						<div class="form-group">
-							<textarea class="form-control" id="note-text" placeholder="New Note"></textarea>
+							<textarea class="form-control" id="note-text" placeholder="Add New Note"></textarea>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-info" id="savenote">Save changes</button>
+					<button type="button" class="btn btn-info" id="savenote">Save Note</button>
 				</div>
 			</div>
 		</div>

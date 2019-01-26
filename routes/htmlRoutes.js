@@ -11,6 +11,7 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     // Grab every document in the Articles collection
     db.Article.find({})
+      .sort({ date: -1 })
       .then(function(dbArticle) {
         //console.log(dbArticle);
         // If we were able to successfully find Articles, send them back to the client
